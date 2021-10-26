@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laoxu.blog.dao.inter.IType">
+
+    <sql id="column">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+        </trim>
+    </sql>
+    <sql id="columnValue">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="condition">
+        <where>
+            <trim suffixOverrides="and">
+                <if test="id!=null">
+                    id=#{id} and
+                </if>
+                <if test="name!=null">
+                    name = #{name} and
+                </if>
+            </trim>
+
+        </where>
+    </sql>
+    <sql id="displayColumn">
+        <choose>
+            <when test="column!=null">
+                ${column}
+            </when>
+            <when test="column==null">
+                *
+            </when>
+        </choose>
+    </sql>
+
+
+
+    <select id="select" resultType="com.laoxu.blog.entity.Type">
+        select * from blog.type
+        <include refid="condition"></include>
+    </select>
+
+    <insert id="add" parameterType="com.laoxu.blog.entity.Type" >
+        insert into blog.type
+        <include refid="column"></include>
+        values
+        <include refid="columnValue"></include>
+    </insert>
+
+    <update id="update" parameterType="com.laoxu.blog.entity.Type">
+        update blog.type set
+        <trim suffixOverrides=",">
+            <if test="name != null">
+                name = #{name},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.laoxu.blog.entity.Type">
+        delete from blog.type where id = #{id}
+    </delete>
+</mapper>
