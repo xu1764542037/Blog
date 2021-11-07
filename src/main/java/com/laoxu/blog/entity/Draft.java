@@ -7,13 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class Draft extends AbsSuperObject{
     //草稿类
-    private int id;
+    private String id;
     private String name;
     private String summary;
-    private String label;
+    private String text;
     private String type;
     private String state;
     private String StartTime;
     private String EndTime;
-    private String FileName;
 }

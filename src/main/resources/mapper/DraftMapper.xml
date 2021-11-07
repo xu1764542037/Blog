@@ -16,8 +16,8 @@
             <if test="summary != null">
                 summary,
             </if>
-            <if test="label != null">
-                label,
+            <if test="text != null">
+                text,
             </if>
             <if test="type != null">
                 type,
@@ -30,9 +30,6 @@
             </if>
             <if test="EndTime != null">
                 EndTime,
-            </if>
-            <if test="FileName != null">
-                FileName,
             </if>
         </trim>
     </sql>
@@ -47,8 +44,8 @@
             <if test="summary != null">
                 #{summary},
             </if>
-            <if test="label != null">
-                #{label},
+            <if test="text != null">
+                #{text},
             </if>
             <if test="type != null">
                 #{type},
@@ -59,11 +56,8 @@
             <if test="StartTime != null">
                 #{StartTime},
             </if>
-            <if test="year != null">
+            <if test="EndTime != null">
                 #{EndTime},
-            </if>
-            <if test="FileName != null">
-                #{FileName},
             </if>
         </trim>
     </sql>
@@ -80,8 +74,8 @@
                 <if test="summary!=null">
                     summary = #{summary} and
                 </if>
-                <if test="label!=null">
-                    label = #{label} and
+                <if test="text!=null">
+                    text = #{text} and
                 </if>
                 <if test="type!=null">
                     type = #{type} and
@@ -94,9 +88,6 @@
                 </if>
                 <if test="EndTime!=null">
                     EndTime = #{EndTime} and
-                </if>
-                <if test="FileName!=null">
-                    FileName = #{FileName} and
                 </if>
             </trim>
 
@@ -114,21 +105,41 @@
     </sql>
 
 
+    <select id="select" resultType="java.util.Map">
+        select * from Blog.draft
+        <include refid="condition"></include>
+    </select>
 
-    <select id="select" resultType="com.laoxu.blog.entity.Draft">
-        select * from blog.draft
+    <select id="selectAllDraft" resultType="java.util.Map">
+        select * from Blog.draft
+        <include refid="condition"></include>
+    </select>
+
+    <select id="findByPage" parameterType="java.util.Map" resultType="java.util.Map">
+        select
+        <include refid="displayColumn"></include>
+        from Blog.draft <include refid="condition"></include>
+        limit #{start},#{rowAccount}
+    </select>
+
+    <select id="rowsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*) count from Blog.draft <include refid="condition"></include>
+    </select>
+
+    <select id="batchSelect" resultType="com.laoxu.blog.entity.Draft">
+        select * from Blog.draft
         <include refid="condition"></include>
     </select>
 
     <insert id="add" parameterType="com.laoxu.blog.entity.Draft" >
-        insert into blog.draft
+        insert into Blog.draft
         <include refid="column"></include>
         values
         <include refid="columnValue"></include>
     </insert>
 
     <update id="update" parameterType="com.laoxu.blog.entity.Draft">
-        update blog.draft set
+        update Blog.draft set
         <trim suffixOverrides=",">
             <if test="name != null">
                 name = #{name},
@@ -136,8 +147,8 @@
             <if test="summary != null">
                 summary = #{summary},
             </if>
-            <if test="label != null">
-                label = #{label},
+            <if test="text != null">
+                text = #{text},
             </if>
             <if test="type != null">
                 type = #{type},
@@ -148,17 +159,14 @@
             <if test="StartTime != null">
                 StartTime = #{StartTime},
             </if>
-            <if test="year != null">
+            <if test="EndTime != null">
                 EndTime = #{EndTime},
-            </if>
-            <if test="FileName != null">
-                FileName = #{FileName},
             </if>
         </trim>
         where id = #{id}
     </update>
 
     <delete id="delete" parameterType="com.laoxu.blog.entity.Draft">
-        delete from blog.draft where id = #{id}
+        delete from Blog.draft where id = #{id}
     </delete>
 </mapper>

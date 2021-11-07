@@ -3,15 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.laoxu.blog.dao.inter.IType">
+<mapper namespace="com.laoxu.blog.dao.inter.ICode">
 
     <sql id="column">
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
             </if>
-            <if test="name != null">
-                name,
+            <if test="code != null">
+                code,
             </if>
         </trim>
     </sql>
@@ -20,8 +20,8 @@
             <if test="id != null">
                 #{id},
             </if>
-            <if test="name != null">
-                #{name},
+            <if test="code != null">
+                #{code},
             </if>
         </trim>
     </sql>
@@ -32,8 +32,8 @@
                 <if test="id!=null">
                     id=#{id} and
                 </if>
-                <if test="name!=null">
-                    name = #{name} and
+                <if test="code!=null">
+                    code = #{code} and
                 </if>
             </trim>
 
@@ -53,33 +53,33 @@
 
 
     <select id="select" resultType="java.util.Map">
-        select * from Blog.type
+        select * from Blog.code
         <include refid="condition"></include>
     </select>
 
-    <select id="batchSelect" resultType="com.laoxu.blog.entity.Type">
-        select * from Blog.type
+    <select id="batchSelect" resultType="com.laoxu.blog.entity.Code">
+        select * from Blog.code
         <include refid="condition"></include>
     </select>
 
-    <insert id="add" parameterType="com.laoxu.blog.entity.Type" >
-        insert into Blog.type
+    <insert id="add" parameterType="com.laoxu.blog.entity.Code" >
+        insert into Blog.code
         <include refid="column"></include>
         values
         <include refid="columnValue"></include>
     </insert>
 
-    <update id="update" parameterType="com.laoxu.blog.entity.Type">
-        update Blog.type set
+    <update id="update" parameterType="com.laoxu.blog.entity.Code">
+        update Blog.code set
         <trim suffixOverrides=",">
-            <if test="name != null">
-                name = #{name},
+            <if test="code != null">
+                code = #{code},
             </if>
         </trim>
         where id = #{id}
     </update>
 
-    <delete id="delete" parameterType="com.laoxu.blog.entity.Type">
-        delete from Blog.type where id = #{id}
+    <delete id="delete" parameterType="com.laoxu.blog.entity.Code">
+        delete from Blog.code where hello = 1
     </delete>
 </mapper>

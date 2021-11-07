@@ -52,20 +52,52 @@
 
 
 
-    <select id="select" resultType="com.laoxu.blog.entity.Label">
-        select * from blog.label
+    <select id="select" resultType="java.util.Map">
+        select * from Blog.label
         <include refid="condition"></include>
     </select>
 
+    <select id="batchSelect" resultType="com.laoxu.blog.entity.Label">
+        select * from Blog.label
+        <include refid="condition"></include>
+    </select>
+
+
+    <select id="batchSelectLabel" parameterType="java.util.List" resultType="com.laoxu.blog.entity.Label">
+        select * from Blog.label where id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectLabelByArticle" resultType="java.util.Map">
+        select * from Blog.article_label
+        where article_id = #{article_id}
+    </select>
+
+
     <insert id="add" parameterType="com.laoxu.blog.entity.Label" >
-        insert into blog.label
+        insert into Blog.label
         <include refid="column"></include>
         values
         <include refid="columnValue"></include>
     </insert>
 
+    <insert id="setLabelByArticle" >
+        insert into Blog.article_label (article_id, label_id)
+        values
+               (#{article.id},#{label.id})
+    </insert>
+
+    <insert id="setLabelByDraft" >
+        insert into Blog.draft_label (draft_id, label_id)
+        values
+            (#{draft.id},#{label.id})
+
+    </insert>
+
     <update id="update" parameterType="com.laoxu.blog.entity.Label">
-        update blog.label set
+        update Blog.label set
         <trim suffixOverrides=",">
             <if test="name != null">
                 name = #{name},
@@ -75,6 +107,10 @@
     </update>
 
     <delete id="delete" parameterType="com.laoxu.blog.entity.Label">
-        delete from blog.label where id = #{id}
+        delete from Blog.label where id = #{id}
+    </delete>
+
+    <delete id="deleteByArticle" parameterType="com.laoxu.blog.entity.Article">
+        delete from Blog.article_label where article_id = #{id}
     </delete>
 </mapper>

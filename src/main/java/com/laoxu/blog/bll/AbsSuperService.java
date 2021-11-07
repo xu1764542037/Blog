@@ -109,7 +109,7 @@ public abstract class AbsSuperService {
             return back;
         }
         //调用数据访问层查找功能
-        List<AbsSuperObject> select = getDao().select(cons);
+        Map<String ,Object> select = getDao().select(cons);
         if (select!=null){
             back.setCode("200");
             back.setMessage("查找成功");
@@ -123,30 +123,6 @@ public abstract class AbsSuperService {
     }
 
 
-    /**
-     * 查找权限名字对应的id
-     */
-    public BackReturn selectActorId(Map<String,Object> cons){
-        BackReturn back = new BackReturn();//检查参数
-        if (getDao()==null) {
-            back.setCode("000");
-            back.setMessage("数据访问层对象为空");
-            back.setObj(null);
-            return back;
-        }
-        //调用数据访问层查找功能
-        List<AbsSuperObject> select = getDao().selectActorId(cons);
-        if (select!=null){
-            back.setCode("200");
-            back.setMessage("查找成功");
-
-        }else {
-            back.setCode("002");
-            back.setMessage("查找失败");
-        }
-        back.setObj(select);
-        return back;
-    }
 
     /**
      * 查找需要的行数
@@ -183,12 +159,7 @@ public abstract class AbsSuperService {
             back.setObj(null);
             return back;
         }
-//        if (cons==null || (cons.get("id")==null && cons.get("name")==null)) {
-//            back.setCode("000");
-//            back.setMessage("查询条件不能为空！");
-//            back.setObj(null);
-//            return back;
-//        }
+
         //查询符合条件的记录总行数
         int rowsTotal=getDao().rowsCount(cons);
         if (rowsTotal<=0){
@@ -201,6 +172,9 @@ public abstract class AbsSuperService {
         cons.put("rowAccount",rowAccount);
         //调用数据访问层查找功能
         List<Map<String,Object>> result=getDao().findByPage(cons);
+
+
+
         if (result!=null && result.size()>0){
             back.setCode(String.valueOf(rowsTotal));
             back.setMessage("已经查到符合您条件的数据！");
@@ -211,4 +185,33 @@ public abstract class AbsSuperService {
         back.setObj(result);
         return back;
     }
+
+
+    /**
+     * 批量查找
+     */
+    public BackReturn batchSelect(Map<String,Object> cons){
+        BackReturn back = new BackReturn();//检查参数
+        if (getDao()==null) {
+            back.setCode("000");
+            back.setMessage("数据访问层对象为空");
+            back.setObj(null);
+            return back;
+        }
+        //调用数据访问层查找功能
+        List<AbsSuperObject> select = getDao().batchSelect(cons);
+        if (select!=null){
+            back.setCode("200");
+            back.setMessage("查找成功");
+
+        }else {
+            back.setCode("002");
+            back.setMessage("查找失败");
+        }
+        back.setObj(select);
+        return back;
+    }
+
+
+
 }

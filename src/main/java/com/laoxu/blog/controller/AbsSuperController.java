@@ -97,12 +97,11 @@ public abstract class AbsSuperController {
         }
     }
 
-
     @CrossOrigin
-    @RequestMapping(value = "/selectActorId", method = RequestMethod.POST)
+    @RequestMapping(value = "/batchSelect", method = RequestMethod.POST)
     @ResponseBody
-    public BackReturn selectActorId(@RequestBody Map<String,Object> object) {
-        BackReturn back = getService().selectActorId(object);
+    public BackReturn batchSelect(@RequestBody Map<String,Object> object) {
+        BackReturn back = getService().batchSelect(object);
         if (back.getObj()!=null && back.getObj() instanceof List){
             List result = (List) back.getObj();
             if (result.size()>0){
@@ -115,6 +114,9 @@ public abstract class AbsSuperController {
             return back;
         }
     }
+
+
+
 
     @CrossOrigin
     @RequestMapping(value = "distinctSelect",method = RequestMethod.POST)

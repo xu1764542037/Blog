@@ -12,21 +12,31 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
-public class ImgController {
+public class ImgControllerImpl {
     /**
      * 图片上传
      */
     @PostMapping("/uploadFile")
-    public String uploadimg(@RequestParam("image") MultipartFile mFile) throws IOException {
+    public Map uploadimg(@RequestParam("image") MultipartFile mFile) throws IOException {
         // 定义存储图片的地址
-//        String folder = "D:/note/assets"; //windows
-        String folder = "/home/note/assets";
+        String folder =null;
+
+        if (System.getProperty("os.name").toLowerCase().contains("windows")){
+            folder = "D:/note/assets"; //windows
+
+        } else if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+
+            folder = "/home/note/assets"; //Linux
+        }
+
         // 文件夹
         File imgFolder = new File(folder);
         // 获取文件名
@@ -40,8 +50,16 @@ public class ImgController {
 
 //        "http://59.52.20.100:8088/mdernsky/note/assets/"
 
-//        String backName = "http://localhost:8188/blog/note/assets/" + newFileName;
-                String backName = "http://106.15.38.204:8188/blog/note/assets/" + newFileName;
+        String backName = null;
+
+
+        if (System.getProperty("os.name").toLowerCase().contains("windows")){
+            backName = "http://localhost:8188/blog/note/assets/" + newFileName;
+
+        } else if (System.getProperty("os.name").toLowerCase().contains("linux")) {
+            backName = "http://106.15.38.204:8188/blog/note/assets/" + newFileName;
+
+        }
 
         // 文件在本机的全路径
         File filePath = new File(imgFolder, newFileName);
@@ -52,10 +70,12 @@ public class ImgController {
             mFile.transferTo(filePath);
             // 返回文件名
 //            return filePath.getName();
-            return backName;
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("imgUrl",backName);
+            return map;
         }catch (IOException e){
             e.printStackTrace();
-            return "";
+            return null;
         }
     }
 

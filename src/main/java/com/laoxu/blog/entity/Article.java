@@ -6,13 +6,12 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class Article extends AbsSuperObject{
-    private int id;
+    private String id;
     private String name;
     private String summary;
-    private String label;
+    private String text;
     private String type;
     private String state;
     private String StartTime;
     private String EndTime;
-    private String FileName;
 }

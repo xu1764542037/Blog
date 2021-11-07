@@ -1,8 +1,10 @@
 package com.laoxu.blog.dao.inter;
 
 import com.laoxu.blog.entity.AbsSuperObject;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +13,10 @@ public interface IDoDate {
     int add(AbsSuperObject obj);
     int update(AbsSuperObject obj);
     int delete(AbsSuperObject obj);
-    List<AbsSuperObject> select(Map<String, Object> cons);
+    Map<String ,Object> select(Map<String, Object> cons);
 
+    ArrayList<AbsSuperObject> batchSelect(Map<String, Object> cons);
 
-
-    List<AbsSuperObject> selectActorId(Map<String, Object> cons);
 
     List<AbsSuperObject> distinctSelect(Map<String,Object> cons);
 
