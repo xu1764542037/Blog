@@ -34,7 +34,7 @@ public class MailControllerImpl {
         RestResponse restResponse = new RestResponse();
         String checkCode = String.valueOf(new Random().nextInt(899999) + 100000);
 
-        String message = "您的注册验证码为："+checkCode+",验证码时效大约只有1分钟！";
+        String message = "您的注册验证码为："+checkCode+",验证码时效大约只有10分钟！";
         code.setCode(checkCode);
         iCode.add(code);
 

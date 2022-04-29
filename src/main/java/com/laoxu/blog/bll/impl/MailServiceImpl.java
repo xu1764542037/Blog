@@ -32,6 +32,7 @@ public class MailServiceImpl {
         mailMessage.setSubject(title);
         mailMessage.setText(content);
         javaMailSender.send(mailMessage);
+        System.out.println("111");
         log.info("邮件发送成功");
     }
 

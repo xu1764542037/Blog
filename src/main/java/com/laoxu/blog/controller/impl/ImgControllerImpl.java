@@ -54,10 +54,10 @@ public class ImgControllerImpl {
 
 
         if (System.getProperty("os.name").toLowerCase().contains("windows")){
-            backName = "http://localhost:8188/blog/note/assets/" + newFileName;
+            backName = "http://localhost:8688/blog/note/assets/" + newFileName;
 
         } else if (System.getProperty("os.name").toLowerCase().contains("linux")) {
-            backName = "http://106.15.38.204:8188/blog/note/assets/" + newFileName;
+            backName = "http://106.15.38.204:8688/blog/note/assets/" + newFileName;
 
         }
 
