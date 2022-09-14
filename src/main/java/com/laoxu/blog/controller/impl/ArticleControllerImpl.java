@@ -3,6 +3,7 @@ package com.laoxu.blog.controller.impl;
 import com.laoxu.blog.bll.AbsSuperService;
 import com.laoxu.blog.bll.impl.ArticleServiceImpl;
 import com.laoxu.blog.bll.impl.LabelServiceImpl;
+import com.laoxu.blog.bll.impl.TypeServiceImpl;
 import com.laoxu.blog.controller.AbsSuperController;
 import com.laoxu.blog.dao.inter.ILabel;
 import com.laoxu.blog.entity.Article;
@@ -29,6 +30,9 @@ public class ArticleControllerImpl extends AbsSuperController {
 
     @Autowired
     private LabelServiceImpl labelService;
+
+    @Autowired
+    private TypeServiceImpl typeService;
 
     @Autowired
     private ILabel iLabel;
@@ -68,7 +72,9 @@ public class ArticleControllerImpl extends AbsSuperController {
 
         article.setId(id);
         List label_ids = (List) object.get("labels");
+        int type_id = (Integer) object.get("type");
         labelService.setLabelByArticle(article,label_ids);
+        typeService.setTypeByArticle(article,type_id);
 
         return back;
     }

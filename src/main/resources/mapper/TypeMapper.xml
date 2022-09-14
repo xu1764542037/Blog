@@ -62,11 +62,42 @@
         <include refid="condition"></include>
     </select>
 
+    <select id="batchSelectType" parameterType="java.util.List" resultType="com.laoxu.blog.entity.Type">
+        select * from Blog.type where id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectTypeByArticle" resultType="java.util.Map">
+        select * from Blog.article_type
+        where article_id = #{article_id}
+    </select>
+
+    <select id="selectEverTypeNum" resultType="java.util.Map">
+        select * from blog.article_type
+        where type_id = #{type_id}
+    </select>
+
+
     <insert id="add" parameterType="com.laoxu.blog.entity.Type" >
         insert into Blog.type
         <include refid="column"></include>
         values
         <include refid="columnValue"></include>
+    </insert>
+
+    <insert id="setTypeByArticle" >
+        insert into Blog.article_type (article_id, type_id)
+        values
+            (#{article.id},#{type.id})
+    </insert>
+
+    <insert id="setTypeByDraft" >
+        insert into Blog.draft_type (draft_id, type_id)
+        values
+            (#{draft.id},#{type.id})
+
     </insert>
 
     <update id="update" parameterType="com.laoxu.blog.entity.Type">
@@ -81,5 +112,9 @@
 
     <delete id="delete" parameterType="com.laoxu.blog.entity.Type">
         delete from Blog.type where id = #{id}
+    </delete>
+
+    <delete id="deleteByArticle" parameterType="com.laoxu.blog.entity.Article">
+        delete from Blog.article_type where article_id = #{id}
     </delete>
 </mapper>

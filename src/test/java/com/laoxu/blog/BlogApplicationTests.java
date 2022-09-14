@@ -1,12 +1,17 @@
 package com.laoxu.blog;
 
 import com.laoxu.blog.bll.impl.LabelServiceImpl;
+import com.laoxu.blog.bll.impl.TypeServiceImpl;
+import com.laoxu.blog.controller.impl.TypeControllerImpl;
 import com.laoxu.blog.dao.inter.IArticle;
 import com.laoxu.blog.dao.inter.ILabel;
+import com.laoxu.blog.dao.inter.IType;
 import com.laoxu.blog.entity.Article;
 import com.laoxu.blog.entity.BackReturn;
 import com.laoxu.blog.entity.Label;
+import com.laoxu.blog.entity.Type;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.TypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -23,6 +28,18 @@ class BlogApplicationTests {
 
     @Autowired
     private Label label;
+
+    @Autowired
+    private Type type;
+
+    @Autowired
+    private IType iType;
+
+    @Autowired
+    private TypeControllerImpl typeController;
+
+    @Autowired
+    private TypeServiceImpl typeService;
 
     @Autowired
     private  IArticle iArticle;
@@ -91,6 +108,28 @@ class BlogApplicationTests {
         article.setId("20211103142554");
         iLabel.deleteByArticle(article);
 
+    }
+
+    @Test
+    void selectTypeByArticle() {
+        Map<String,Object> map = new HashMap<>();
+        map.put("article_id","20220807122856");
+        iType.selectTypeByArticle(map);
+    }
+
+    @Test
+    void selectTypeByArticle2() {
+        Map<String,Object> map = new HashMap<>();
+        map.put("article_id","20220807122856");
+        typeService.selectTypeByArticle(map);
+
+    }
+
+    @Test
+    void selectType() {
+        BackReturn backReturn = typeController.selectEverTypeNum(null);
+        Object obj = backReturn.getObj();
+        System.out.println(obj);
     }
 
 

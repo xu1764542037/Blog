@@ -107,16 +107,19 @@ public class ArticleServiceImpl extends AbsSuperService {
             back.setObj(null);
             return back;
         }
+//        System.out.println("======================");
+//        System.out.println("======================");
+//        System.out.println(cons);
         //调用数据访问层查找功能
-
-
         List<Map<String ,Object>> selects = dao.selectAllArticle(cons);
-        System.out.println("======================");
-        System.out.println("======================");
-
+//        System.out.println("======================");
+//        System.out.println("======================");
+//
 //        System.out.println(selects);
 
-        System.out.println("======================");
+//        System.out.println("======================");
+//        System.out.println("======================");
+
         for (Map<String, Object> select : selects) {
             Map<String,Object> typeMap = new HashMap<>();
             typeMap.put("id",select.get("type"));

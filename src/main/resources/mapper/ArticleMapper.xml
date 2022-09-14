@@ -78,7 +78,7 @@
                     text like "%"#{text}"%" and
                 </if>
                 <if test="type!=null">
-                    type like "%"#{type}"%" and
+                    type = #{type} and
                 </if>
                 <if test="state!=null">
                     state = #{state} and
